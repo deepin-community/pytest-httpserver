@@ -1,3 +1,29 @@
+Metadata-Version: 2.1
+Name: pytest-httpserver
+Version: 1.0.6
+Summary: pytest-httpserver is a httpserver for pytest
+Home-page: https://github.com/csernazs/pytest-httpserver
+License: MIT
+Author: Zsolt Cserna
+Author-email: cserna.zsolt@gmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Framework :: Pytest
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: Werkzeug (>=2.0.0)
+Project-URL: Bug Tracker, https://github.com/csernazs/pytest-httpserver/issues
+Project-URL: Documentation, https://pytest-httpserver.readthedocs.io/en/latest/
+Project-URL: Repository, https://github.com/csernazs/pytest-httpserver
+Description-Content-Type: text/markdown
+
 [![Build Status](https://github.com/csernazs/pytest-httpserver/workflows/build/badge.svg?branch=master)](https://github.com/csernazs/pytest-httpserver/actions?query=workflow%3Abuild+branch%3Amaster)
 [![Documentation Status](https://readthedocs.org/projects/pytest-httpserver/badge/?version=latest)](https://pytest-httpserver.readthedocs.io/en/latest/?badge=latest)
  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -125,3 +151,4 @@ behind the scenes, parsing HTTP request and defining Request and Response object
 are currently transparent in the API.
 
 If you wish to donate, please consider donating to them: https://palletsprojects.com/donate
+
