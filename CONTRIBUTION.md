@@ -20,8 +20,9 @@ https://pytest-httpserver.readthedocs.io/en/latest/background.html
 
 There are a few rules you are kindly asked to accept:
 
-* Coding style is checked by `pre-commit`. You can run `make precommit` before proceeding
-  with the PR.
+* Coding style is checked by `pre-commit`. You can run `make precommit` before
+  proceeding with the PR. To install the pre-commit hooks to your git (so it
+  will be run for each commit), run `pre-commit install`.
 
 * Tests should be written for the new code. If there's a complex logic
   implemented, it should be tested on different valid and invalid inputs and
@@ -41,10 +42,14 @@ There are a few rules you are kindly asked to accept:
 * You can let your IDE of your choice to use the `.venv/bin/python` interpreter,
   so it will know all the dependencies.
 
-* running tests on the localhost can be done by issuing `make quick-test`. It is
-  "quick" because it tests the software with only one interpreter. Note that the
+* running tests on the localhost can be done by issuing `make test`. Note that the
   library can be used by many supported interpreters and unless it is absolutely
   required, we don't want to drop support.
+
+* running tests on multiple versions of interpreter locally can be done by
+  `tox`. Keep in mind that the CI job uses github actions with caching for
+  effective use, and `tox` is provided for the developers only.
+
 
 ## More technical details
 
@@ -56,3 +61,12 @@ There are a few rules you are kindly asked to accept:
   docstrings, but if the PR changes the code and the way of working
   conceptually, the main documentation (located in the doc directory) needs to
   be updated and extended.
+
+* nix files are provided on a best-effort basis. `tox.nix` can be used to run
+  `tox`, `shell.nix` can be used instead of poetry for development. No tests
+  have been written for these (yet!), so they may be out of sync occasionally.
+
+* to release a new version, you can use the `scripts/release.py` script to make
+  the wheels and sdist, generate the changelog, and tag the commit. This tool
+  won't upload the artifacts as they need to be checked manually (by installing
+  the wheel to a new venv, for example).

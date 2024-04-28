@@ -40,24 +40,15 @@ using the library is not complicated.
 
 Example:
 
-.. code-block:: python
-
-    def test_query_params(httpserver):
-        httpserver.expect_request("/foo", query_string={"user": "user1"}).respond_with_data(
-            "OK"
-        )
+.. literalinclude :: ../tests/examples/test_example_query_params1.py
+   :language: python
 
 It is simple in the most simple cases, but once the expectation is more
 specific, the line can grow significantly, so here the user is expected to put
 the literals into variables:
 
-.. code-block:: python
-
-    def test_query_params(httpserver):
-        httpserver.expect_request("/foo", query_string=expected_query).respond_with_data(
-            "OK"
-        )
-
+.. literalinclude :: ../tests/examples/test_example_query_params2.py
+   :language: python
 
 If the user wants something more complex, classes are available for this which
 can be instantiated and then specified for the parameters normally accepting
@@ -176,12 +167,11 @@ the state of the officially supported python versions by PSF.
 The library should be tested periodically on the supported versions.
 
 Dropping support for old python versions is possible if supporting would cause
-an issue or require extensive workaround. Currently, 3.4 is still supported by
-the library, however it is deprecated by PSF. As it causes no problems for
-*pytest-httpserver* (there's an additional requirement for this in the setup.py,
-but that's all), the support for this version will be maintained as long as
-possible. Once a new change is added to the library which require great effort
-to maintain compatibility with 3.4, the support for it will be dropped.
+an issue or require extensive workaround.
+
+Python support for a given version is also dropped if it is near to the end of
+support or when a dependency deprecates it - this is needed to move forward with
+the community in order to support the latest versions of the dependencies.
 
 
 Testing and coverage

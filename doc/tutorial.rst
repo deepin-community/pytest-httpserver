@@ -39,6 +39,12 @@ This tells that when the request arrives to the *http://localhost/foobar* URL,
 it must respond with the provided json. The library accepts here any python
 object which is json serializable. Here, a dict is provided.
 
+.. note::
+
+    It is important to specify what response to be sent back to the client
+    otherwise *pytest-httpserver* will error with ``Matching request handler
+    found but no response defined`` message on an incoming request.
+
 In the next line, an http request is sent with the *requests* library:
 
 .. code:: python
@@ -69,7 +75,7 @@ also.
 It is advised to use the ``url_for()`` method to construct an URL as it will
 always contain the correct port number in the URL.
 
-If you need the http port as an integer, you can get is by the ``port``
+If you need the http port as an integer, you can get it by the ``port``
 attribute of the ``httpserver`` object.
 
 

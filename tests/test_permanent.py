@@ -93,3 +93,30 @@ def test_server_cleared_for_each_test(httpserver: HTTPServer):
     assert httpserver.ordered_handlers == []
     assert httpserver.oneshot_handlers == []
     assert httpserver.handlers == []
+
+
+def test_response_handler_replaced(httpserver: HTTPServer):
+    # https://github.com/csernazs/pytest-httpserver/issues/229
+    handler = httpserver.expect_request("/foobar")
+    handler.respond_with_data("FOO")
+    response = requests.get(httpserver.url_for("/foobar"))
+    assert response.text == "FOO"
+    assert response.status_code == 200
+    handler.respond_with_json({"foo": "bar"})
+    response = requests.get(httpserver.url_for("/foobar"))
+    assert response.json() == {"foo": "bar"}
+    assert response.status_code == 200
+
+
+def test_request_handler_repr(httpserver: HTTPServer):
+    handler = httpserver.expect_request("/foo", method="POST")
+    assert (
+        repr(handler)
+        == "<RequestHandler uri='/foo' method='POST' query_string=None headers={} data=None json=<UNDEFINED>>"
+    )
+
+    handler = httpserver.expect_request("/query", query_string={"a": "123"})
+    assert (
+        repr(handler) == "<RequestHandler uri='/query' method='__ALL' query_string={'a': '123'} "
+        "headers={} data=None json=<UNDEFINED>>"
+    )

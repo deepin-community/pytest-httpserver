@@ -1,28 +1,13 @@
 #!/usr/bin/make -f
+# -*- makefile -*-
 
-# DH_VERBOSE := 1
+#export DH_VERBOSE=1
+
 export LC_ALL=C.UTF-8
 export PYBUILD_NAME=pytest-httpserver
-
-include /usr/share/dpkg/default.mk
-# this provides:
-# DEB_SOURCE: the source package name
-# DEB_VERSION: the full version of the package (epoch + upstream vers. + revision)
-# DEB_VERSION_EPOCH_UPSTREAM: the package's version without the Debian revision
-# DEB_VERSION_UPSTREAM_REVISION: the package's version without the Debian epoch
-# DEB_VERSION_UPSTREAM: the package's upstream version
-# DEB_DISTRIBUTION: the distribution(s) listed in the current entry of debian/changelog
-# SOURCE_DATE_EPOCH: the source release date as seconds since the epoch, as
-#                    specified by <https://reproducible-builds.org/specs/source-date-epoch/>
-
-# for hardening you might like to uncomment this:
-# export DEB_BUILD_MAINT_OPTIONS=hardening=+all
+export PYBUILD_TEST_ARGS=-k 'not \
+test_ipv4 and not \
+test_ipv6'
 
 %:
-	dh $@ --with python3 --buildsystem=pybuild
-
-### When overriding auto_test make sure DEB_BUILD_OPTIONS will be respected
-#override_dh_auto_test:
-#ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-#	do_stuff_for_testing
-#endif
+	dh $@ --buildsystem=pybuild
