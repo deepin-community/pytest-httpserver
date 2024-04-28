@@ -2,6 +2,100 @@
 Release Notes
 =============
 
+.. _Release Notes_1.0.10:
+
+1.0.10
+======
+
+.. _Release Notes_1.0.10_New Features:
+
+New Features
+------------
+
+- When there's no handler for the request, add more details to the response
+  sent by the server about the request to help debugging.
+
+
+.. _Release Notes_1.0.10_Other Notes:
+
+Other Notes
+-----------
+
+- Use ruff for linting. It includes some source code changes which should not
+  introduce functional changes, or API changes.
+
+
+.. _Release Notes_1.0.9:
+
+1.0.9
+=====
+
+.. _Release Notes_1.0.9_New Features:
+
+New Features
+------------
+
+- Add ``__repr__`` to ``RequestHandler`` object so when it is compared (eg. with
+  the ``log`` attribute of the server) it will show the matcher parameters.
+
+
+.. _Release Notes_1.0.8:
+
+1.0.8
+=====
+
+.. _Release Notes_1.0.8_Bug Fixes:
+
+Bug Fixes
+---------
+
+- Version 1.0.7 has been released with incorrect dependencies. This is fixed now.
+
+
+.. _Release Notes_1.0.7:
+
+1.0.7
+=====
+
+.. _Release Notes_1.0.7_Upgrade Notes:
+
+Upgrade Notes
+-------------
+
+- With werkzeug 2.3.x the headers type has been updated to not allow integers as header values. This restriction followed up in pytest-httpserver.
+
+
+.. _Release Notes_1.0.7_Deprecation Notes:
+
+Deprecation Notes
+-----------------
+
+- Python versions earlier than 3.8 have been deprecated in order to support
+  the latest werkzeug. Users using 3.7 or earlier python may use
+  pytest-httpserver with earlier werkzeug versions but tests are no longer run
+  for these python versions.
+
+
+.. _Release Notes_1.0.7_Bug Fixes:
+
+Bug Fixes
+---------
+
+- Type hinting for header_value_matcher has been fixed. From now, specifying a
+  callable as ``Callable[[str, Optional[str], str], bool]`` will be accepted
+  also. Providing a ``HeaderValueMatcher`` object will be also accepted as
+  before, as it provides the same callable signature.
+
+- Fix Werkzeug deprecation warning about ``parse_authorization_header`` call.
+  Replace ``parse_authorization_header`` with ``Authorization.from_header`` as
+  suggested. This fix should not introduce any functional change for the
+  users.
+
+- Fix Werkzeug deprecation warning about ``werkzeug.urls.url_decode`` call. This
+  call has been changed to ``urllib.parse.parse_qsl`` in the implementation.
+  This fix should not introduce any functional change for the users.
+
+
 .. _Release Notes_1.0.6:
 
 1.0.6

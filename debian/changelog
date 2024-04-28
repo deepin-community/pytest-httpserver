@@ -1,3 +1,44 @@
+pytest-httpserver (1.0.10-1) unstable; urgency=medium
+
+  * Team upload
+  * [78fa049] New upstream version 1.0.10
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sun, 10 Mar 2024 08:36:31 +0100
+
+pytest-httpserver (1.0.9-1) unstable; urgency=medium
+
+  * Team upload
+  * [3e6dba1] New upstream version 1.0.9
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sat, 24 Feb 2024 08:52:55 +0100
+
+pytest-httpserver (1.0.8-2) unstable; urgency=medium
+
+  * Team upload
+  * [37ba74b] autopkgtest: Add python3-toml to required packages
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Mon, 25 Dec 2023 18:31:13 +0100
+
+pytest-httpserver (1.0.8-1) unstable; urgency=medium
+
+  * Team upload
+  * [d7a0a24] d/watch: Use git mode to watch out
+  * [2d4de07] d/gbp.conf: Add some default config
+  * [f55f224] New upstream version 1.0.8
+  * [9da8bc5] d/*: Running wrap-and-sort -ast
+  * [4e50645] Drop current patch queue
+    Dropping the one existing patch, not needed any more.
+  * [7574784] d/control: Bump Standards-Version to 4.6.2
+    No further changes needed.
+  * [2a07dda] d/control: Adjust to dh-sequence-python3 and python3-all
+  * [68d86bf] d/rules: Drop --with option in default target
+  * [77b2d33] d/control: Add nocheck profile to werkzeug
+  * [fb91c9d] d/rules: Ignore usage of 'test_ipv*' in test suite
+  * [7de8204] d/README.source: Add basic information about source
+  * [f20b8f0] autopkgtest: Improve CI and test setup
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sun, 24 Dec 2023 18:19:27 +0100
+
 pytest-httpserver (1.0.6-2) unstable; urgency=medium
 
   * Packaging update

@@ -1,5 +1,4 @@
-# TODO: skip if poetry is not available or add mark to test it explicitly
-
+from __future__ import annotations
 
 import email
 import re
@@ -10,15 +9,18 @@ import zipfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
-from typing import Tuple
 
 import pytest
 import toml
+
+# TODO: skip if poetry is not available or add mark to test it explicitly
+
 
 pytestmark = pytest.mark.release
 
 NAME = "pytest-httpserver"
 NAME_UNDERSCORE = NAME.replace("-", "_")
+PY_MAX_VERSION = (3, 12)
 
 
 @pytest.fixture(scope="session")
@@ -44,7 +46,7 @@ class Wheel:
 
     def extract(self):
         with zipfile.ZipFile(self.path) as zf:
-            zf.extractall(self.wheel_out_dir)
+            zf.extractall(self.wheel_out_dir)  # noqa: S202
 
     def get_meta(self, version: str, name: str = NAME_UNDERSCORE) -> email.message.Message:
         metadata_path = self.wheel_out_dir.joinpath(f"{name}-{version}.dist-info", "METADATA")
@@ -64,7 +66,7 @@ class Sdist:
 
     def extract(self):
         with tarfile.open(self.path, mode="r:gz") as tf:
-            tf.extractall(self.sdist_out_dir)
+            tf.extractall(self.sdist_out_dir)  # noqa: S202
 
 
 @dataclass
@@ -78,7 +80,7 @@ class Build:
 
 
 @pytest.fixture(scope="session")
-def build(request) -> Iterable[Build]:
+def build() -> Iterable[Build]:
     dist_path = Path("dist").resolve()
     if dist_path.is_dir():
         shutil.rmtree(dist_path)
@@ -103,7 +105,7 @@ def version(pyproject) -> str:
     return pyproject["tool"]["poetry"]["version"]
 
 
-def version_to_tuple(version: str) -> Tuple:
+def version_to_tuple(version: str) -> tuple:
     return tuple([int(x) for x in version.split(".")])
 
 
@@ -120,20 +122,20 @@ def test_python_version(build: Build, pyproject):
     pyproject_meta = pyproject["tool"]["poetry"]
     wheel_meta = build.wheel.get_meta(version=pyproject_meta["version"])
     python_dependency = pyproject_meta["dependencies"]["python"]
-    m = re.match(r">=(\d+\.\d+),<(\d+\.\d+)", python_dependency)
+    m = re.match(r">=(\d+\.\d+)", python_dependency)
     if m:
-        min_version, max_version = m.groups()
+        min_version, *_ = m.groups()
     else:
         raise ValueError(python_dependency)
 
     min_version_tuple = version_to_tuple(min_version)
-    max_version_tuple = version_to_tuple(max_version)
 
     for classifier in wheel_meta.get_all("Classifier"):
         if classifier.startswith("Programming Language :: Python ::"):
             version_tuple = version_to_tuple(classifier.split("::")[-1].strip())
             if len(version_tuple) > 1:
-                assert version_tuple >= min_version_tuple and version_tuple < max_version_tuple
+                assert version_tuple >= min_version_tuple
+                assert version_tuple <= PY_MAX_VERSION
 
 
 def test_wheel_no_extra_contents(build: Build, version: str):
@@ -168,7 +170,6 @@ def test_sdist_contents(build: Build, version: str):
             "pyproject.toml",
             "pytest_httpserver",
             "README.md",
-            "setup.py",
             "tests",
         },
         "doc": {
@@ -195,15 +196,17 @@ def test_sdist_contents(build: Build, version: str):
         "tests": {
             "assets",
             "conftest.py",
+            "examples",
             "test_blocking_httpserver.py",
-            "test_blocking_httpserver_howto.py",
             "test_handler_errors.py",
             "test_headers.py",
+            "test_ip_protocols.py",
             "test_json_matcher.py",
             "test_mixed.py",
             "test_oneshot.py",
             "test_ordered.py",
             "test_permanent.py",
+            "test_parse_qs.py",
             "test_port_changing.py",
             "test_querymatcher.py",
             "test_querystring.py",
